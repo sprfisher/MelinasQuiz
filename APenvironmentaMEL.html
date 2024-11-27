@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melina's AP Environmental Review</title>
+    <style>
+        /* Updated CSS for button-like answers */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+        }
+
+        #quiz-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #question-container {
+            margin-top: 20px;
+        }
+
+        .choice-button {
+            display: block;
+            margin: 10px 0;
+            padding: 10px 20px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: left;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .choice-button:hover {
+            background: #0056b3;
+        }
+
+        #feedback {
+            margin-top: 20px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-left: 5px solid #ccc;
+        }
+
+        #next-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+
+        #next-button:disabled {
+            background: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>Melina's AP Environmental Prep</h1>
+        <div id="question-container"></div>
+        <button id="next-button">Next Question</button>
+        <div id="feedback"></div>
+    </div>
+    <script>
+        // Updated JavaScript for button-like answers
+        const questions = [
+    {
+        question: "Excerpt from the United Nations Brundtland Report (1987): \n\n'Sustainable development meets the needs of the present without compromising the ability of future generations to meet their own needs.'\n\nWhat is the key focus of this definition of sustainable development?",
+        choices: [
+            "The maximization of resource extraction",
+            "Balancing present resource use with future needs",
+            "Reducing the use of renewable resources",
+            "Promoting economic growth at all costs"
+        ],
+        correctAnswer: 1,
+        explanation: "Sustainable development emphasizes balancing current resource use with preserving resources for future generations."
+    },
+    {
+        question: "Data from an air quality monitoring station: \n\n'Ozone levels peaked at 90 parts per billion (ppb) at 3:00 PM, exceeding the recommended limit of 70 ppb.'\n\nWhat environmental issue does this data highlight?",
+        choices: [
+            "Acid deposition",
+            "Photochemical smog",
+            "Global warming",
+            "Deforestation"
+        ],
+        correctAnswer: 1,
+        explanation: "High ozone levels are a key component of photochemical smog, often caused by vehicle emissions and industrial activity."
+    },
+    {
+        question: "Excerpt from Rachel Carson’s Silent Spring (1962): \n\n'It is not my contention that chemical pesticides must never be used. But we must consider their impact on the environment and health.'\n\nWhat environmental issue is Carson addressing?",
+        choices: [
+            "The overuse of fertilizers in agriculture",
+            "The harmful effects of pesticides on ecosystems",
+            "The role of renewable energy in reducing pollution",
+            "The depletion of natural resources"
+        ],
+        correctAnswer: 1,
+        explanation: "Carson’s 'Silent Spring' highlighted the unintended ecological and health effects of chemical pesticides, such as DDT."
+    },
+    {
+        question: "Graph showing human population growth (1750–2050): \n\nThe human population grew exponentially from 1 billion in 1800 to over 8 billion in 2023.\n\nWhat factor most contributes to this exponential growth?",
+        choices: [
+            "Increased rates of deforestation",
+            "Improvements in agriculture, medicine, and sanitation",
+            "A global decrease in fertility rates",
+            "A shift to renewable energy sources"
+        ],
+        correctAnswer: 1,
+        explanation: "Advances in agriculture, medicine, and sanitation have dramatically increased life expectancy and supported exponential population growth."
+    },
+    {
+        question: "Excerpt from the Kyoto Protocol (1997): \n\n'The Parties included in Annex I shall reduce their greenhouse gas emissions to 5% below 1990 levels.'\n\nWhat was the main goal of the Kyoto Protocol?",
+        choices: [
+            "To regulate industrial waste disposal",
+            "To combat climate change by reducing greenhouse gas emissions",
+            "To conserve biodiversity in protected areas",
+            "To address air quality standards for urban areas"
+        ],
+        correctAnswer: 1,
+        explanation: "The Kyoto Protocol was the first major international agreement to combat climate change by reducing greenhouse gas emissions."
+    },
+    {
+        question: "Data table on water quality: \n\nLake A: Nitrate levels = 15 mg/L (EPA safe limit: 10 mg/L)\nLake B: Phosphorus levels = 2.0 mg/L (eutrophication threshold: 1.0 mg/L)\n\nWhat is the likely environmental concern for Lake B?",
+        choices: [
+            "Toxic algal blooms due to eutrophication",
+            "Thermal pollution from power plants",
+            "Low dissolved oxygen levels from oil spills",
+            "Acidification due to acid rain"
+        ],
+        correctAnswer: 0,
+        explanation: "Excess phosphorus in Lake B suggests eutrophication, which can lead to algal blooms and oxygen depletion."
+    },
+    {
+        question: "Excerpt from the IPCC Climate Report (2021): \n\n'Human influence has unequivocally warmed the atmosphere, ocean, and land, with many observed changes unprecedented in thousands of years.'\n\nWhat is the primary cause of these changes?",
+        choices: [
+            "Increased solar radiation",
+            "Burning of fossil fuels and greenhouse gas emissions",
+            "Natural climate cycles such as El Niño",
+            "A decrease in volcanic activity"
+        ],
+        correctAnswer: 1,
+        explanation: "The IPCC attributes observed climate changes primarily to human activities like burning fossil fuels and emitting greenhouse gases."
+    },
+    {
+        question: "Diagram of an energy pyramid: \n\nProducers: 1000 kcal → Primary Consumers: 100 kcal → Secondary Consumers: 10 kcal → Tertiary Consumers: 1 kcal\n\nWhat does this diagram illustrate?",
+        choices: [
+            "The inefficiency of energy transfer between trophic levels",
+            "The importance of primary consumers in ecosystems",
+            "The overproduction of energy by decomposers",
+            "The role of producers in reducing carbon emissions"
+        ],
+        correctAnswer: 0,
+        explanation: "Energy transfer between trophic levels is inefficient, with most energy lost as heat at each level."
+    },
+    {
+        question: "Excerpt from the Clean Air Act (1970): \n\n'The act requires the EPA to establish National Ambient Air Quality Standards to protect public health.'\n\nWhat was the primary purpose of the Clean Air Act?",
+        choices: [
+            "To regulate water pollution",
+            "To reduce emissions of harmful air pollutants",
+            "To promote renewable energy development",
+            "To address habitat loss"
+        ],
+        correctAnswer: 1,
+        explanation: "The Clean Air Act aimed to reduce harmful air pollutants and improve air quality for public health."
+    },
+    {
+        question: "Map showing global deforestation trends: \n\n'The Amazon Basin has lost over 17% of its forest cover since 1970, primarily due to cattle ranching and agriculture.'\n\nWhat is a major environmental consequence of deforestation in the Amazon?",
+        choices: [
+            "Increased biodiversity",
+            "Loss of carbon sequestration and increased greenhouse gases",
+            "Stabilization of global temperatures",
+            "Reduction in water pollution"
+        ],
+        correctAnswer: 1,
+        explanation: "Deforestation reduces the Amazon’s capacity to sequester carbon, contributing to increased greenhouse gas concentrations."
+    },
+    {
+        question: "Excerpt from the Paris Agreement (2015): \n\n'To limit global temperature rise to well below 2°C above pre-industrial levels and pursue efforts to limit the increase to 1.5°C.'\n\nWhat is the primary focus of this international agreement?",
+        choices: [
+            "Protecting endangered species",
+            "Reducing global carbon emissions to combat climate change",
+            "Establishing marine protected areas",
+            "Regulating industrial water use"
+        ],
+        correctAnswer: 1,
+        explanation: "The Paris Agreement focuses on limiting global warming by reducing carbon emissions."
+    },
+    {
+        question: "Graph showing species extinction rates: \n\nThe extinction rate has increased 100 times above the natural background rate in the last century.\n\nWhat is the primary driver of this increase?",
+        choices: [
+            "Natural climate cycles",
+            "Human activities such as habitat destruction and pollution",
+            "Decreased volcanic activity",
+            "Global cooling trends"
+        ],
+        correctAnswer: 1,
+        explanation: "Human activities, including habitat destruction and pollution, have significantly accelerated extinction rates."
+    }
+]
+;
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionContainer = document.getElementById("question-container");
+        const feedbackContainer = document.getElementById("feedback");
+        const nextButton = document.getElementById("next-button");
+
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            questionContainer.innerHTML = `
+                <h2>${question.question}</h2>
+                ${question.choices.map((choice, index) => `
+                    <button class="choice-button" data-choice="${index}">${choice}</button>
+                `).join('')}
+            `;
+            feedbackContainer.innerHTML = "";
+            nextButton.style.display = "none";
+
+            const choiceButtons = document.querySelectorAll(".choice-button");
+            choiceButtons.forEach(button => {
+                button.addEventListener("click", (e) => {
+                    const userAnswer = parseInt(e.target.getAttribute("data-choice"));
+                    checkAnswer(userAnswer);
+                });
+            });
+        }
+
+        function checkAnswer(userAnswer) {
+            const question = questions[currentQuestion];
+            const isCorrect = userAnswer === question.correctAnswer;
+            feedbackContainer.innerHTML = `
+                <p>${isCorrect ? "Correct!" : "Incorrect."}</p>
+                <p>${isCorrect ? "" : `The correct answer is: ${question.choices[question.correctAnswer]}`}</p>
+                <p>${question.explanation}</p>
+            `;
+            if (isCorrect) score++;
+            nextButton.style.display = "block";
+
+            // Disable buttons after selecting an answer
+            const choiceButtons = document.querySelectorAll(".choice-button");
+            choiceButtons.forEach(button => button.disabled = true);
+        }
+
+        nextButton.addEventListener("click", () => {
+            currentQuestion++;
+            if (currentQuestion < questions.length) {
+                loadQuestion();
+            } else {
+                questionContainer.innerHTML = `
+                    <h2>Quiz Complete!</h2>
+                    <p>Your Score: ${score} / ${questions.length}</p>
+                `;
+                nextButton.style.display = "none";
+            }
+        });
+
+        // Load the first question on startup
+        loadQuestion();
+    </script>
+</body>
+</html>
